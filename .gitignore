@@ -1,0 +1,10 @@
+###> symfony/framework-bundle ###
+api/public/bundles/
+api/var/
+api/vendor/
+###< symfony/framework-bundle ###
+api/helm/api/charts
+api/helm/api/requirements.lock
+
+*.idea/*
+.idea/

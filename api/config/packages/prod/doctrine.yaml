@@ -1,0 +1,15 @@
+doctrine:
+    orm:
+        auto_mapping: true
+        # each caching driver type defines its own config options
+        metadata_cache_driver: apcu
+        result_cache_driver:
+            type: redis
+            host: '%env(REDIS_CACHE_HOST)%'
+            port: '%env(REDIS_CACHE_PORT)%'
+            timeout: '%env(REDIS_CACHE_TIMEOUT)%'
+        query_cache_driver:
+            type: redis
+            host: '%env(REDIS_CACHE_HOST)%'
+            port: '%env(REDIS_CACHE_PORT)%'
+            timeout: '%env(REDIS_CACHE_TIMEOUT)%'
