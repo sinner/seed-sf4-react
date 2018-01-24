@@ -31,8 +31,12 @@ services:
         container_name: blynkworks-nginx
         depends_on:
             - php
+            - db
+            - redis
         links:
             - php
+            - db
+            - redis
         ports:
             - "8181:80"
             - "8182:443"
@@ -44,6 +48,7 @@ services:
         image: mariadb:latest
         env_file:
             - ./api/.env
+        hostname: blynkworks-mariadb
         container_name: blynkworks-mariadb
         volumes:
             - db-data:/var/lib/mysql:rw

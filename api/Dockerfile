@@ -13,10 +13,12 @@ RUN set -xe \
 		$PHPIZE_DEPS \
 		icu-dev \
 		postgresql-dev \
+		mysql-dev \
 		zlib-dev \
 	&& docker-php-ext-install \
 		intl \
 		pdo_pgsql \
+		pdo_mysql \
 		zip \
 	&& pecl install \
 		apcu-${APCU_VERSION} \
