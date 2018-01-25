@@ -6,29 +6,36 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
+ * User
+ *
+ * @author José Gabriel González <jggonzalez@teravisiontech.com>
+ *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
+ * @ORM\Table(name="user", indexes={@ORM\Index(name="USER_USERNAME_IDX", columns={"username"}), @ORM\Index(name="USER_EMAIL_IDX", columns={"email"}), @ORM\Index(name="FK_COMPANY_ENGAGEMENT_CREATOR_USER_IDX", columns={"creator_user_id"}), @ORM\Index(name="FK_COMPANY_ENGAGEMENT_UPDATER_USER_IDX", columns={"updater_user_id"})})
  */
 class User implements AdvancedUserInterface, \Serializable
 {
+
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true, nullable=false)
+     * @ORM\Column(type="string", length=25, unique=true)
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=64, nullable=false)
+     * @ORM\Column(type="string", length=64)
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=60, unique=true, nullable=false)
+     * @ORM\Column(type="string", length=60, unique=true)
      */
     private $email;
 
@@ -62,10 +69,21 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $createdBy;
 
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     *      @ORM\JoinColumn(name="creator_user_id", referencedColumnName="id")
+     */
+    protected $creatorUser;
 
-    private $updatedAt;
-
-    private $updatedBy;
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     *      @ORM\JoinColumn(name="updater_user_id", referencedColumnName="id")
+     */
+    protected $updaterUser;
 
     /**
      * User constructor.
